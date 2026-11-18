@@ -26,4 +26,28 @@ export class Carta {
       this.precio = null;
     }
   }
+
+  idSeleccionado: number | null = null;
+
+  seleccionarProducto(producto: any): void {
+    this.idSeleccionado = producto.id;
+    this.nombre = producto.nombre;
+    this.categoria = producto.categoria;
+    this.precio = producto.precio;
+  }
+
+
+  modificar(): void {
+    if (this.idSeleccionado === null) return;
+
+    const r = this.data.modificarProducto(this.idSeleccionado, this.nombre, this.categoria, Number(this.precio));
+
+    this.mensaje.set({ ok: r.ok, texto: r.mensaje });
+    if (r.ok) {
+      this.idSeleccionado = null;
+      this.nombre = '';
+      this.categoria = '';
+      this.precio = null;
+    }
+  }
 }

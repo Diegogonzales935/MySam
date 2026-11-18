@@ -3,7 +3,7 @@
 
 <div class="card mb-4">
   <div class="card-body">
-    <form class="row g-2 align-items-end" (ngSubmit)="agregar()">
+    <form class="row g-2 align-items-end" (ngSubmit)="idSeleccionado !== null ? modificar() : agregar()">
       <div class="col-md-5">
         <label for="nombre" class="form-label small mb-1">Nombre</label>
         <input id="nombre" name="nombre" class="form-control" [(ngModel)]="nombre" />
@@ -25,7 +25,13 @@
         <input id="precio" name="precio" type="number" min="0" step="0.5" class="form-control" [(ngModel)]="precio" />
       </div>
       <div class="col-md-2">
-        <button class="btn btn-mysam w-100" type="submit"><i class="bi bi-plus-lg"></i> Agregar</button>
+        <button type="submit" class="btn btn-mysam w-100">
+          @if (idSeleccionado !== null) {
+            <p class="bi bi-pencil-square"></p> Guardar cambios
+          } @else {
+            <i class="bi bi-plus-circle"></i> Agregar
+          }
+      </button>
       </div>
     </form>
     @if (mensaje(); as m) {
@@ -40,7 +46,7 @@
       <thead><tr><th>#</th><th>Producto</th><th>Categoría</th><th class="text-end">Precio</th></tr></thead>
       <tbody>
         @for (p of data.productos(); track p.id) {
-          <tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.categoria }}</td><td class="text-end">{{ p.precio | currency: 'PEN' : 'S/ ' }}</td></tr>
+          <tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.categoria }}</td><td class="text-end">{{ p.precio | currency: 'PEN' : 'S/ ' }}</td><td><button type = "button" class="btn btn-outline-primary btn-sm" (click)="seleccionarProducto(p)">Modificar</button></td></tr>
         }
       </tbody>
     </table>
