@@ -25,10 +25,10 @@ export class Inicio {
   protected readonly accesos = computed(() => {
     const rol = this.usuario()?.rol;
     const todos = [
-      { ruta: '/mesero/registro-pedido', titulo: 'Registrar pedido', desc: 'Toma pedidos de mesa o para llevar.', icono: 'bi-journal-plus', roles: ['Mesero', 'Propietario'] },
-      { ruta: '/mesero/mis-pedidos', titulo: 'Mis pedidos', desc: 'Revisa el estado y confirma entregas.', icono: 'bi-list-check', roles: ['Mesero', 'Propietario'] },
-      { ruta: '/cocina', titulo: 'Cocina', desc: 'Comandas en orden de llegada.', icono: 'bi-fire', roles: ['Chef', 'Propietario'] },
-      { ruta: '/caja', titulo: 'Caja', desc: 'Cobros, pagos parciales y vouchers.', icono: 'bi-cash-coin', roles: ['Cajero', 'Propietario'] },
+      { ruta: '/mesero/registro-pedido', titulo: 'Registrar pedido', desc: 'Toma pedidos de mesa o para llevar.', icono: 'bi-journal-plus', roles: ['Mesero'] },
+      { ruta: '/mesero/mis-pedidos', titulo: 'Mis pedidos', desc: 'Revisa el estado y confirma entregas.', icono: 'bi-list-check', roles: ['Mesero'] },
+      { ruta: '/cocina', titulo: 'Cocina', desc: 'Comandas en orden de llegada.', icono: 'bi-fire', roles: ['Chef'] },
+      { ruta: '/caja', titulo: 'Caja', desc: 'Cobros, pagos parciales y vouchers.', icono: 'bi-cash-coin', roles: ['Cajero'] },
       { ruta: '/reportes', titulo: 'Reportes', desc: 'Ventas por fecha, producto, método y mesero.', icono: 'bi-bar-chart', roles: ['Propietario'] },
       { ruta: '/carta', titulo: 'Carta', desc: 'Administra los productos de la carta.', icono: 'bi-book', roles: ['Propietario'] },
     ];

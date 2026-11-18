@@ -21,10 +21,10 @@ export class Sidebar {
 
   private readonly enlaces: Enlace[] = [
     { ruta: '/inicio', texto: 'Inicio', icono: 'bi-house', roles: ['Mesero', 'Chef', 'Cajero', 'Propietario'] },
-    { ruta: '/mesero/registro-pedido', texto: 'Registrar pedido', icono: 'bi-journal-plus', roles: ['Mesero', 'Propietario'] },
-    { ruta: '/mesero/mis-pedidos', texto: 'Mis pedidos', icono: 'bi-list-check', roles: ['Mesero', 'Propietario'] },
-    { ruta: '/cocina', texto: 'Cocina', icono: 'bi-fire', roles: ['Chef', 'Propietario'] },
-    { ruta: '/caja', texto: 'Caja', icono: 'bi-cash-coin', roles: ['Cajero', 'Propietario'] },
+    { ruta: '/mesero/registro-pedido', texto: 'Registrar pedido', icono: 'bi-journal-plus', roles: ['Mesero'] },
+    { ruta: '/mesero/mis-pedidos', texto: 'Mis pedidos', icono: 'bi-list-check', roles: ['Mesero'] },
+    { ruta: '/cocina', texto: 'Cocina', icono: 'bi-fire', roles: ['Chef'] },
+    { ruta: '/caja', texto: 'Caja', icono: 'bi-cash-coin', roles: ['Cajero'] },
     { ruta: '/reportes', texto: 'Reportes', icono: 'bi-bar-chart', roles: ['Propietario'] },
     { ruta: '/carta', texto: 'Carta de productos', icono: 'bi-book', roles: ['Propietario'] },
   ];
