@@ -159,7 +159,9 @@ export class Data {
         mensaje: 'Debe completar la información: seleccione productos e indique cantidades válidas.',
       };
     }
-
+    if (tipo === "Mesa" && this.cuentasAbiertas().some((c) => c.tipo === 'Mesa' && c.mesa === mesa))
+      return { ok: false, mensaje: `La mesa ${mesa} ya tiene una cuenta abierta.` };
+    
     const lineas: LineaPedido[] = items.map((i) => ({
       id: this.nextId++,
       producto: i.producto,
@@ -279,6 +281,16 @@ export class Data {
       { id: this.nextId++, nombre: nombre.trim(), categoria: categoria.trim(), precio },
     ]);
     return { ok: true, mensaje: 'Producto agregado a la carta.' };
+  }
+
+  modificarProducto(id: number, nombre: string, categoria: string, precio: number): Resultado {
+    const p = this.productos().find((x) => x.id === id);
+    if (!p) return { ok: false, mensaje: 'Producto no encontrado.' };
+    if (!nombre.trim() || !categoria.trim() || !(precio > 0)) {
+      return { ok: false, mensaje: 'Complete nombre, categoría y un precio mayor a 0.' };
+    }
+    this.productos.update((ps) => ps.map((x) => (x.id === id ? { ...x, nombre: nombre.trim(), categoria: categoria.trim(), precio } : x)));
+    return { ok: true, mensaje: 'Producto modificado en la carta.' };
   }
 
   // ===== Mensajes de contacto (página pública) =====
