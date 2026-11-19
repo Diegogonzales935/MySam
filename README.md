@@ -70,3 +70,5 @@ Lee [CONTRIBUTING.md](CONTRIBUTING.md) antes de subir tu parte.
 - `main`: versión estable
 - `develop`: integración
 - `feature/<nombre>`: una rama por funcionalidad, integrada mediante pull request a `develop`
+
+
