@@ -43,7 +43,7 @@
 <div class="card">
   <div class="table-responsive">
     <table class="table table-hover mb-0">
-      <thead><tr><th>#</th><th>Producto</th><th>Categoría</th><th class="text-end">Precio</th></tr></thead>
+      <thead><tr><th>#</th><th>Producto</th><th>Categoria</th><th class="text-end">Precio</th></tr></thead>
       <tbody>
         @for (p of data.productos(); track p.id) {
           <tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.categoria }}</td><td class="text-end">{{ p.precio | currency: 'PEN' : 'S/ ' }}</td><td><button type = "button" class="btn btn-outline-primary btn-sm" (click)="seleccionarProducto(p)">Modificar</button></td></tr>
