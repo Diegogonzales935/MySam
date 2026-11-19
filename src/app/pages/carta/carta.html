@@ -1,16 +1,22 @@
+<!-- Título de la página de administración de productos -->
 <h1 class="h3 titulo-pagina"><i class="bi bi-book"></i> Carta de productos</h1>
+<!-- Explicación del propósito de esta sección -->
 <p class="text-secondary">Administra los productos que los meseros pueden registrar en los pedidos.</p>
 
+<!-- Formulario para agregar un producto o guardar cambios de uno existente -->
 <div class="card mb-4">
   <div class="card-body">
     <form class="row g-2 align-items-end" (ngSubmit)="idSeleccionado !== null ? modificar() : agregar()">
+      <!-- Campo para ingresar el nombre del producto -->
       <div class="col-md-5">
         <label for="nombre" class="form-label small mb-1">Nombre</label>
         <input id="nombre" name="nombre" class="form-control" [(ngModel)]="nombre" />
       </div>
+      <!-- Campo de categoría con opciones sugeridas -->
       <div class="col-md-3">
         <label for="categoria" class="form-label small mb-1">Categoría</label>
         <input id="categoria" name="categoria" class="form-control" list="categorias" [(ngModel)]="categoria" />
+        <!-- Categorías disponibles como sugerencias para el campo -->
         <datalist id="categorias">
           <option value="Arroces"></option>
           <option value="Tallarines"></option>
@@ -20,10 +26,12 @@
           <option value="Bebidas"></option>
         </datalist>
       </div>
+      <!-- Campo numérico para indicar el precio en soles -->
       <div class="col-md-2">
         <label for="precio" class="form-label small mb-1">Precio (S/)</label>
         <input id="precio" name="precio" type="number" min="0" step="0.5" class="form-control" [(ngModel)]="precio" />
       </div>
+      <!-- Botón que cambia según se agregue o modifique un producto -->
       <div class="col-md-2">
         <button type="submit" class="btn btn-mysam w-100">
           @if (idSeleccionado !== null) {
@@ -34,18 +42,22 @@
       </button>
       </div>
     </form>
+    <!-- Mensaje de resultado de la operación realizada -->
     @if (mensaje(); as m) {
       <div class="alert mt-3 mb-0 py-2" [class.alert-success]="m.ok" [class.alert-danger]="!m.ok" role="alert">{{ m.texto }}</div>
     }
   </div>
 </div>
 
+<!-- Tabla con los productos registrados en la carta -->
 <div class="card">
   <div class="table-responsive">
     <table class="table table-hover mb-0">
+      <!-- Encabezados de las columnas de información del producto -->
       <thead><tr><th>#</th><th>Producto</th><th>Categoria</th><th class="text-end">Precio</th></tr></thead>
       <tbody>
         @for (p of data.productos(); track p.id) {
+          <!-- Fila con los datos del producto y el botón para editarlo -->
           <tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.categoria }}</td><td class="text-end">{{ p.precio | currency: 'PEN' : 'S/ ' }}</td><td><button type = "button" class="btn btn-outline-primary btn-sm" (click)="seleccionarProducto(p)">Modificar</button></td></tr>
         }
       </tbody>
