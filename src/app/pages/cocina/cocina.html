@@ -1,43 +1,105 @@
-<h1 class="h3 titulo-pagina"><i class="bi bi-fire"></i> Tablero de cocina</h1>
-<p class="text-secondary">Comandas en orden de llegada. Cambia su estado según avance la preparación.</p>
 
+<!-- ==========================================
+     TABLERO DE COCINA
+     Vista principal para gestionar las comandas
+     y visualizar el avance de preparación.
+=========================================== -->
+
+<!-- Encabezado de la sección -->
+<h1 class="h3 titulo-pagina">
+  <i class="bi bi-fire"></i> Tablero de cocina
+</h1>
+
+<p class="text-secondary">
+  Comandas en orden de llegada. Cambia su estado según avance la preparación.
+</p>
+
+<!-- Mensajes de confirmación o error de las operaciones -->
 @if (mensaje(); as m) {
-  <div class="alert py-2" [class.alert-success]="m.ok" [class.alert-danger]="!m.ok" role="alert">{{ m.texto }}</div>
+  <div
+    class="alert py-2"
+    [class.alert-success]="m.ok"
+    [class.alert-danger]="!m.ok"
+    role="alert">
+    {{ m.texto }}
+  </div>
 }
 
+<!-- Validación y visualización de comandas pendientes -->
 @if (pendientes().length === 0) {
-  <div class="alert alert-info"><i class="bi bi-emoji-smile"></i> No hay órdenes pendientes.</div>
+  <div class="alert alert-info">
+    <i class="bi bi-emoji-smile"></i> No hay órdenes pendientes.
+  </div>
 } @else {
   <div class="row g-3">
+
+    <!-- Recorrido de comandas respetando el orden de llegada -->
     @for (o of pendientes(); track o.id; let i = $index) {
       <div class="col-md-6 col-xl-4">
+
+        <!-- Tarjeta individual de cada comanda -->
         <div class="card h-100 comanda">
+
+          <!-- Información general y estado actual de la orden -->
           <div class="card-header d-flex justify-content-between align-items-center">
-            <span><span class="badge bg-dark me-1">{{ i + 1 }}</span> <strong>#{{ o.id }}</strong> · {{ o.tipo === 'Mesa' ? 'Mesa ' + o.mesa : 'Para llevar' }}</span>
-            <span class="badge badge-estado {{ color[o.estado] }}">{{ o.estado }}</span>
+            <span>
+              <span class="badge bg-dark me-1">{{ i + 1 }}</span>
+              <strong>#{{ o.id }}</strong> ·
+              {{ o.tipo === 'Mesa' ? 'Mesa ' + o.mesa : 'Para llevar' }}
+            </span>
+            <span class="badge badge-estado {{ color[o.estado] }}">
+              {{ o.estado }}
+            </span>
           </div>
+
+          <!-- Detalle de productos e indicaciones especiales -->
           <ul class="list-group list-group-flush">
             @for (l of o.lineas; track l.id) {
               <li class="list-group-item">
                 <strong>{{ l.cantidad }} ×</strong> {{ l.producto.nombre }}
+
+                <!-- Indicaciones adicionales para la preparación -->
                 @if (l.indicaciones) {
-                  <div class="small text-danger fst-italic"><i class="bi bi-exclamation-circle"></i> {{ l.indicaciones }}</div>
+                  <div class="small text-danger fst-italic">
+                    <i class="bi bi-exclamation-circle"></i>
+                    {{ l.indicaciones }}
+                  </div>
                 }
               </li>
             }
           </ul>
+
+          <!-- Información del personal y controles de preparación -->
           <div class="card-footer">
+
+            <!-- Datos de registro de la comanda -->
             <div class="small text-secondary mb-2">
               {{ o.hora | date: 'HH:mm:ss' }} · Mesero: {{ o.mesero }}
-              @if (o.chef) { · Chef: {{ o.chef }} }
+              @if (o.chef) {
+                · Chef: {{ o.chef }}
+              }
             </div>
+
+            <!-- Acciones para actualizar el estado de la orden -->
             <div class="d-flex gap-2">
-              <button type="button" class="btn btn-sm btn-primary flex-fill" [disabled]="o.estado !== 'En espera'" (click)="cambiar(o.id, 'En preparación')">
+
+              <!-- Acción para iniciar la preparación -->
+              <button
+                type="button"
+                class="btn btn-sm btn-primary flex-fill"
+                [disabled]="o.estado !== 'En espera'"
+                (click)="cambiar(o.id, 'En preparación')">
                 <i class="bi bi-play-fill"></i> Iniciar preparación
               </button>
-              <button type="button" class="btn btn-sm btn-success flex-fill" (click)="cambiar(o.id, 'Listo para entregar')">
+
+              <!-- Acción para marcar la comanda como lista -->
+              <button
+                type="button"
+                class="btn btn-sm btn-success flex-fill"
+                (click)="cambiar(o.id, 'Listo para entregar')">
                 <i class="bi bi-check-lg"></i> Listo
               </button>
+
             </div>
           </div>
         </div>
@@ -46,11 +108,20 @@
   </div>
 }
 
+<!-- ==========================================
+     SECCIÓN DE ÓRDENES LISTAS
+     Muestra las comandas que finalizaron
+     su preparación y esperan ser entregadas.
+=========================================== -->
+
 @if (listas().length > 0) {
   <h2 class="h5 mt-4">Listas para entregar</h2>
+
   <div class="d-flex flex-wrap gap-2">
     @for (o of listas(); track o.id) {
-      <span class="badge bg-success p-2">#{{ o.id }} · {{ o.tipo === 'Mesa' ? 'Mesa ' + o.mesa : 'Para llevar' }}</span>
+      <span class="badge bg-success p-2">
+        #{{ o.id }} · {{ o.tipo === 'Mesa' ? 'Mesa ' + o.mesa : 'Para llevar' }}
+      </span>
     }
   </div>
 }
